@@ -28,7 +28,7 @@ function solveEquation(a, b, c) {
 
 
 
-console.log("---------------------------------");
+console.log("-------------------------------------");
 
 
 let percent = 10;
