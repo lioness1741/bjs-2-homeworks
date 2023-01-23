@@ -10,14 +10,13 @@ function getArrayParams(...arr) {
   let sumMiddle = result / arr.length;
   let avg = Number(sumMiddle.toFixed(2));
 
+
   let finalAnswer = { min: min, max: max, avg: avg };
   console.log(finalAnswer);
   return finalAnswer;
 }
 
 getArrayParams(-99, 99, 10);
-
-
 
 
 
@@ -49,6 +48,7 @@ function differenceEvenOddWorker(...arr) {
   if (arr.length === 0) {
     return 0;
   }
+  
   let sumEvenElement = 0;
   let sumOddElement = 0;
 
