@@ -40,51 +40,26 @@ solveEquation(2, 4, 8);
 
 
 
+function calculateTotalMortgage(percent, contribution, amount, countMonths) { 
 
-function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-
-if (isNaN(percent)) {
-  let checkOut1 = 'Неверно введено значение процентов по кредиту. Проверьте данные!';
-  console.log(checkOut1);
-  return;
-}
-else if (isNaN(contribution)) {
-  let checkOut2 = 'Неверно введено значение первоначального взноса по кредиту. Проверьте данные!';
-  сonsole.log(checkOut2);
-  return;
-}
-else if (isNaN(amount)) {
-  let checkOut3 = 'Неверно введено значение суммы кредита. Проверьте данные!';
-  console.log(checkOut3);
-  return;
-}
-else if (isNaN(countMonths)) {
-  let checkOut4 = 'Неверно введено количество месяцев по кредиту. Проверьте данные!';
-  console.log(checkOut4);
-  return;
-}
-else {
-  let letsCount = 'Посчитаем.';
-  console.log(letsCount);
-}
-
-
-  
+   if ((percent < 0 ||  contribution < 0 || amount < 0 || countMonths < 0 ) || 
+    (isNaN(percent) === true || isNaN(contribution) === true || isNaN(amount) === true || isNaN(countMonths) === true)) {
+        return "Ошибка данные введены неверно";
+    }
+ 
   let percentPerMonth = percent / 100 / 12;
-  console.log(percentPerMonth + ' процентов за пользование кредитом в месяц!');
+  
 
   let amountBody = amount - contribution;
   let root = Math.pow((1 + percentPerMonth), countMonths);
 
   let paymentPerMonth = amountBody * (percentPerMonth + (percentPerMonth / (root - 1)));
-  console.log(amountBody.toFixed(2) + ' рублей за погашение основного долга по кредиту!')
-  console.log(paymentPerMonth.toFixed(2) + ' рублей платеж по кредиту за месяц!');
 
-  let summAll = paymentPerMonth * countMonths;
-  console.log(summAll.toFixed(2) + ' рублей общая сумма платежа по кредиту!');
-
-  if (isNaN(summAll));
-  return;
+  return (paymentPerMonth * countMonths).toFixed(2);
 }
 
+
 calculateTotalMortgage(10, 0, 50000, 12);
+
+
+
