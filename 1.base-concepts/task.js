@@ -44,7 +44,7 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
 
    if ((percent < 0 ||  contribution < 0 || amount < 0 || countMonths < 0 ) || 
     (isNaN(percent) === true || isNaN(contribution) === true || isNaN(amount) === true || isNaN(countMonths) === true)) {
-        return "Ошибка данные введены неверно";
+        return false;
     }
  
   let percentPerMonth = percent / 100 / 12;
@@ -55,7 +55,7 @@ function calculateTotalMortgage(percent, contribution, amount, countMonths) {
 
   let paymentPerMonth = amountBody * (percentPerMonth + (percentPerMonth / (root - 1)));
 
-  return (paymentPerMonth * countMonths).toFixed(2);
+  return Number((paymentPerMonth * countMonths).toFixed(2));
 }
 
 
