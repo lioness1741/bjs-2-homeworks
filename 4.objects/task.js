@@ -2,36 +2,20 @@ function Student(name, gender, age) {
   this.name = name;
   this.gender = gender;
   this.age = age;
+  this.marks = [];
 }
 
 Student.prototype.setSubject = function(subjectName) {
   this.subject = subjectName;
 }
-
-Student.prototype.addMark = function(mark) {
-    if(this.marks === undefined){
-        this.marks = [mark];   
-    } else {
-        this.marks.push(mark);
-    }    
-}
-
 Student.prototype.addMarks = function(...marks) {
-  if (this.marks === undefined) {
-  this.marks = marks; 
-  } else {    
-     this.marks.concat(marks);
+  let expelledStu = this.marks ? this.marks.push(...marks) : "student expelled";
+  return expelledStu;
   }
+  Student.prototype.getAverage = function() {
+  let averCount = !this.marks || !this.marks.length ? 0 : this.marks.reduce((acc, i) => acc + i, 0) / this.marks.length;
+  return averCount;
 }
-
-Student.prototype.getAverage = function() {
-  if (this.marks === undefined) {
-    return 0;
-  } else {
-    return this.marks.reduce((acc, i) => acc + i, 0) / this.marks.length;    
-  }
-}
-
 Student.prototype.exclude = function(reason) {
   delete this.subject;
   delete this.marks;
