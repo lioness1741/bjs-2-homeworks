@@ -1,3 +1,5 @@
+console.log('------------1------------');
+
 class PrintEditionItem {
   constructor(name, releaseDate,
     pagesCount) {
@@ -28,46 +30,46 @@ class PrintEditionItem {
 
 class Magazine extends PrintEditionItem {
   constructor(name, releaseDate,
-    pagesCount, type) {
+    pagesCount) {
     super(name, releaseDate,
-      pagesCount, type);
+      pagesCount);
     this.type = "magazine";
   }
 }
 
 class Book extends PrintEditionItem {
-  constructor(releaseDate,
-    pagesCount, type, author) {
-    super(releaseDate,
-      pagesCount, type);
+  constructor(author, name, releaseDate,
+    pagesCount) {
+    super(name, releaseDate,
+      pagesCount);
     this.type = "book";
     this.author = author;
   }
 }
 
 class NovelBook extends Book {
-  constructor(releaseDate,
-    pagesCount, type, author) {
-    super(releaseDate,
-      pagesCount, type, author);
+  constructor(author, name, releaseDate,
+    pagesCount) {
+    super(author, name, releaseDate,
+      pagesCount);
     this.type = "novel";
   }
 }
 
 class FantasticBook extends Book {
-  constructor(releaseDate,
-    pagesCount, type, author) {
-    super(releaseDate,
-      pagesCount, type, author);
+ constructor(author, name, releaseDate,
+    pagesCount) {
+    super(author, name, releaseDate,
+      pagesCount);
     this.type = "fantastic";
   }
 }
 
 class DetectiveBook extends Book {
-  constructor(releaseDate,
-    pagesCount, type, author) {
-    super(releaseDate,
-      pagesCount, type, author);
+ constructor(author, name, releaseDate,
+    pagesCount) {
+    super(author, name, releaseDate,
+      pagesCount);
     this.type = "detective";
   }
 }
@@ -98,7 +100,7 @@ console.log(picknick.state); //10
 picknick.fix();
 console.log(picknick.state); //15
 
-console.log('---------------2---------------');
+console.log('------------2------------');
 
 class Library {
   constructor(name, books) {
@@ -106,52 +108,44 @@ class Library {
     this.books = [];
   }
 
-addBook(book) {  
-  if (book.state > 30) {
-    return this.books.push(book);
-  } 
-}
-
-findBookBy(type, value) {
-  let findBook = this.books.find(book => book[type] === value);
-  if(typeof findBook === 'object') {
-    return findBook;
-  }  else {
-  return null;
+  addBook(book) {
+    if (book.state > 30) {
+      return this.books.push(book);
+    }
   }
-}
+
+   findBookBy(type, value) {
+    const findBook = this.books.find((book) => book[type] === value);
+       return findBook || null;
+  }
 
   giveBookByName(bookName) {
-    let giveBoookBy = this.books.find(book => book.name === bookName);
-        if (typeof giveBoookBy === 'object') {
-            let index = this.books.indexOf(giveBoookBy);
-            this.books.splice(index, 1);
-            return giveBoookBy;
-        }  else {
-          return null;
-        }
-  }
+const book = this.findBookBy("name", bookName);
+if (!book) return null;
+this.books = this.books.filter((item) => item.name !== bookName);
+return book;
+}
 }
 
 console.log('-------------------');
 
-  const library = new Library("Библиотека имени Ленина");
+const library = new Library("Библиотека имени Ленина");
 
 library.addBook(
- new DetectiveBook(
-   "Артур Конан Дойл",
-   "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
-   2019,
-   1008
- )
+  new DetectiveBook(
+    "Артур Конан Дойл",
+    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
+    2019,
+    1008
+  )
 );
 library.addBook(
- new FantasticBook(
-   "Аркадий и Борис Стругацкие",
-   "Пикник на обочине",
-   1972,
-   168
- )
+  new FantasticBook(
+    "Аркадий и Борис Стругацкие",
+    "Пикник на обочине",
+    1972,
+    168
+  )
 );
 library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
 library.addBook(new Magazine("Мурзилка", 1924, 60));
@@ -164,7 +158,7 @@ library.giveBookByName("Машина времени");
 console.log("Количество книг после выдачи: " + library.books.length); //Количество книг после выдачи: 3
 
 
-console.log('--------------3-------------');
+console.log('------------3------------');
 
 
 class Student {
@@ -174,9 +168,9 @@ class Student {
     this.age = age;
   }
 
-   addMark(mark, subject) {
-    if(mark < 2 || mark > 5) {
-      return;
+  addMark(mark, subject) {
+    if (mark < 2 || mark > 5) {
+      return 'Оценка должна быть от 2 до 5';
     }
        if (this[subject] === undefined) { 
           this[subject] = [];
@@ -190,27 +184,24 @@ class Student {
     if (this[subject] === undefined) {
          return 'Предмет не существует.';
         }
-        else { 
-          let sumSum = (this[subject].reduce ((acc, i) => acc + i))/this[subject].length
-            return sumSum;  
+       else { 
+         return (this[subject].reduce ((previous, next) => previous + next) / this[subject].length);  
         }  
   }
 
-  getAverage() {
-    let sum = 0;
+   getAverage() {
+    let sumAv = 0;
     let subjectsSum = 0;
-
     for (let properties in this) {
       if ((properties !== 'name') && (properties !== 'gender') && (properties !== 'age')) {
-        sum += this.getAverageBySubject(properties);
+        sumAv += this.getAverageBySubject(properties);
         subjectsSum += 1;
       }
-      return Number((sum / subjectsSum).toFixed(1));
-      
     }
-  }  
-
+    return Number((sumAv/subjectsSum).toFixed(1));
+  } 
   }
+
 
 
 console.log('-------------------------');
