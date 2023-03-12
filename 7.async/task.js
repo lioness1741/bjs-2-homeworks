@@ -5,35 +5,36 @@ class AlarmClock {
   }
 
   addClock(time, callback) {
-    if (!time || !callback) {
+      this.alarmCollection.push({
+        callback: callback,
+        time: time,
+        canCall: true
+      });
+     if((arguments.length != 2) || (time === null) || (callback === null)) {
       throw new Error('Отсутствуют обязательные аргументы');
-    } else {
-      let index = false;
-      if (this.alarmCollection.length > 0) {
-        index = this.alarmCollection.findIndex(alarm => alarm.time === time);
-      }
-      if (index) {
-        console.warn('Уже присутствует звонок на это же время');
-      } else {
-        this.alarmCollection.push({
-          callback: callback,
-          time: time,
-          canCall: true
-        });
-      }
+    }
+    let index = false;
+   
+    if (index) {
+      console.warn('Уже присутствует звонок на это же время');
     }
   }
 
   removeClock(time) {
-    let index = this.alarmCollection.findIndex(alarm => alarm.time === time);
-    if (index) {
+   let index = this.alarmCollection.some(alarm => alarm.time === time);
+    if(index) {
+      for(let i = 0; i < this.alarmCollection.length; i++) {
       this.alarmCollection.splice(index, 1);
+    }
     }
   }
 
   getCurrentFormattedTime() {
     let thisMoment = new Date();
-    return thisMoment.toLocaleTimeString().substr(0, 5);
+    return thisMoment.toLocaleTimeString("ru-Ru", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
   start() {
