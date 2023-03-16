@@ -4,29 +4,23 @@ class AlarmClock {
     this.intervalId = null;
   }
 
-  addClock(time, callback) {
-      this.alarmCollection.push({
+ addClock(time, callback) {
+     if((!time) || (!callback)) {
+      throw new Error('Отсутствуют обязательные аргументы');
+    }
+        
+    if (this.alarmCollection.some(alarm => alarm.time === time)) {
+      console.warn('Уже присутствует звонок на это же время');
+    }
+     this.alarmCollection.push({
         callback: callback,
         time: time,
         canCall: true
       });
-     if((arguments.length != 2) || (time === null) || (callback === null)) {
-      throw new Error('Отсутствуют обязательные аргументы');
-    }
-    let index = false;
-   
-    if (index) {
-      console.warn('Уже присутствует звонок на это же время');
-    }
   }
 
   removeClock(time) {
-   let index = this.alarmCollection.some(alarm => alarm.time === time);
-    if(index) {
-      for(let i = 0; i < this.alarmCollection.length; i++) {
-      this.alarmCollection.splice(index, 1);
-    }
-    }
+   this.alarmCollection = this.alarmCollection.filter(alarm => alarm.time !== time);
   }
 
   getCurrentFormattedTime() {
